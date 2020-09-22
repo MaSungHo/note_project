@@ -1,2 +1,7 @@
 <h1>전체 글 목록입니다.</h1>
+<%@posts.each do |x|%>
+  제목: <%=x.title%> <br>
+  내용: <%=x.content%> <br>
+  -------------------------- <br>
+<% end %>
 <a href="/home/new">새 글쓰기</a>
