@@ -4,7 +4,6 @@ class HomeController < ApplicationController
   end
 
   def new
-
   end
   
   def create
@@ -15,4 +14,12 @@ class HomeController < ApplicationController
   
     redirect_to '/home/index'
   end
+
+  def destroy
+    @post = Post.find(params[:post_id])
+    @post.destroy
+    
+    redirect_to "/home/index"
+  end
+
 end

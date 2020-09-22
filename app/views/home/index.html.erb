@@ -2,6 +2,7 @@
 <%@posts.each do |x|%>
   제목: <%=x.title%> <br>
   내용: <%=x.content%> <br>
+  <a href="/home/destroy/<%=x.id%>">[삭제]</a> <br>
   -------------------------- <br>
 <% end %>
 <a href="/home/new">새 글쓰기</a>
