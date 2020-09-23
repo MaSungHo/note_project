@@ -2,12 +2,13 @@
 <%@posts.each do |x|%>
   제목: <%=x.title%> <br>
   내용: <%=x.content%> <br>
-  <a href="/home/destroy/<%=x.id%>">[삭제1]</a>
-  <!-- <%=link_to "[삭제2]", post_destroy_path(post_id: x.id)%> -->
-  <%=link_to post_destroy_path(post_id: x.id) do%>
-    <button>삭제 2</button>
+  <%=link_to post_path(x.id), method: :delete do%>
+    <button>삭제</button>
   <%end%> 
-  <a href="/home/edit/<%=x.id%>">[수정]</a> <br>
+  
+  <%=link_to edit_post_path(x.id) do %>
+    <button>수정</button>
+  <%end%> <br>
   -------------------------- <br>
 <% end %>
-<a href="/home/new">새 글쓰기</a>
+<%=link_to '새 글 쓰기', new_post_path%> <br>

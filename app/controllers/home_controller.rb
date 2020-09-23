@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :set_post, only: %i(edit update destroy)
+
   def index
     @posts = Post.all
   end
@@ -8,32 +10,42 @@ class HomeController < ApplicationController
   end
   
   def create
-    post = Post.new #테이블에 한 행을 추가한다
-    post.title = params[:post][:title] #post_title의 내용을 title 행에 추가
-    post.content = params[:post][:content] #post_content의 내용을 content 행에 추가
-    post.save #테이블에 써준 내용을 모두 저장함.
-  
-    redirect_to '/home/index'
+    post = Post.new(post_params)
+    respond_to do |format|
+      if post.save #테이블에 써준 내용을 모두 저장함.
+        format.html{redirect_to posts_path, notice:'게시물이 성공적으로 작성됐습니다.'}
+      else
+        format.html{render :new}
+      end
+    end
   end
 
   def edit
-    @post = Post.find(params[:post_id])
   end
 
   def update
-    post = Post.find(params[:post_id])
-    post.title = params[:post][:title]
-    post.content = params[:post][:content]
-    post.save
-
-    redirect_to "/home/index"
+    respond_to do |format|
+      if @post.update(post_params)
+       format.html{ redirect_to posts_path, notice: '게시물이 성공적으로 수정됐습니다' }
+      else
+        format.html{ render :edit }
+      end
+    end
   end
 
   def destroy
-    post = Post.find(params[:post_id])
-    post.destroy
+    @post.destroy
     
-    redirect_to "/home/index"
+    redirect_to posts_path
+  end
+
+  private
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :content)
   end
 
 end
