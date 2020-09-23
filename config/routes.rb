@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #get 'home/new' => 'home#new'
   #get 'home/create'
   #get 'home/create' => 'home#create'
-  post 'home/create'
+  post 'home/create', as: 'posts'
   
   get 'home/destroy/:post_id' => 'home#destroy', as: 'post_destroy'
   #get 'home/destroy/:post_id', to: 'home#destroy', as: 'post_destroy'와 같다
@@ -16,5 +16,5 @@ Rails.application.routes.draw do
 
   get 'home/edit/:post_id' => 'home#edit'
 
-  post 'home/update/:post_id' => 'home#update'
+  patch 'home/update/:post_id' => 'home#update', as: 'post'
 end
