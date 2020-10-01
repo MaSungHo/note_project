@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users, path: 'user', path_names: {sign_in: 'login', sign_out: 'logout'}
   root 'home#index'
   
-  resources :posts, controller: :home
+  resources :posts, controller: :home do
+    resources :comments, only: %i(create destroy)
+  end
   # get 'home/index'
   # #get 'home/index' => 'home#index'
   # get 'home/new'

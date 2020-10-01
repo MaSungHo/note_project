@@ -1,8 +1,13 @@
 class HomeController < ApplicationController
-  before_action :set_post, only: %i(edit update destroy)
+  before_action :authenticate_user!, only: %i(show destroy edit)
+  before_action :set_post, only: %i(edit update destroy show)
 
   def index
     @posts = Post.all
+  end
+
+  def show
+
   end
 
   def new

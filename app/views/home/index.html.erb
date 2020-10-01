@@ -1,11 +1,15 @@
 <h1>전체 글 목록입니다.</h1>
 <%@posts.each do |x|%>
-  제목: <%=x.title%> <br>
-  내용: <%=x.content%> <br>
+  <%=x.title%> <br>
+
+  <%=link_to post_path(x.id) do%>
+    <button>보기</button>
+  <%end%> 
+  
   <%=link_to post_path(x.id), method: :delete do%>
     <button>삭제</button>
   <%end%> 
-  
+
   <%=link_to edit_post_path(x.id) do %>
     <button>수정</button>
   <%end%> <br>
