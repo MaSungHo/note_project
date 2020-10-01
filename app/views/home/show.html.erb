@@ -9,7 +9,10 @@
 <%end%> <br>
 
 <%@post.comments.each do |comment|%>
-  <%=comment.content%> <%=link_to '[삭제]', post_comment_path(@post.id, comment.id), method: :delete%><br>
+  <%=comment.content%>
+  <%if comment.user_id == current_user.id%>
+    <%=link_to '[삭제]', post_comment_path(@post.id, comment.id), method: :delete%>
+  <%end%> <br>
 <%end%> <br>
 
 <%=link_to '뒤로 가기', '/'%>
