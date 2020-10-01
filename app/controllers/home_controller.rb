@@ -12,17 +12,26 @@ class HomeController < ApplicationController
 
   def new
     @post = Post.new
+    3.times {@post.hashtags.new}
   end
   
   def create
-    post = Post.new(post_params)
+    @post = Post.new(post_params)
+
+    3.times do |x|
+      tag = hashtag_params[:hashtags_attributes]["#{x}"]["title"]
+      hashtag = Hashtag.find_or_create_by(title: tag)
+      @post.hashtags << hashtag
+    end
+
     respond_to do |format|
-      if post.save #테이블에 써준 내용을 모두 저장함.
+      if @post.save #테이블에 써준 내용을 모두 저장함.
         format.html{redirect_to posts_path, notice:'게시물이 성공적으로 작성됐습니다.'}
       else
         format.html{render :new}
       end
     end
+    
   end
 
   def edit
@@ -51,6 +60,10 @@ class HomeController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content)
+  end
+
+  def hashtag_params
+    params.require(:post).permit(hashtags_attributes: [:title])
   end
 
 end
